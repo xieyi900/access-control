@@ -41,13 +41,10 @@ Additionally, there are two APIs to implement the requirement:
 ## Core methods
  1. Add User Access
  
-Here we load the data from access.json after the instantiation of UserAccessService bean.
-and put the data into a userAccessMap that will be utilized to save the related endpoints 
-once we need to add user access. Since there will be a case that sometimes it may cause 
-a amount of time if too many userIds in the map, we use the threadpool and Compleatable 
-features to asynchronously executing the writeFile task so that it will not block the 
-main thread. Besides, we add a callback interface to notify whenever the success of failure 
-on the task.
+Here we load the data from access.json and save in a map after the instantiation of UserAccessService bean.
+Since there will be a case that sometimes it may cause a amount of time if too many userIds in the map, 
+we use the threadpool and Compleatable features to asynchronously executing the writeFile task so that it won't
+block the main thread. Besides, we add a callback interface to notify whenever the success of failure on the task.
 
        public ResponseEntity<Object> addUserAccess(String userId, List<String> endpoints, WriteCallBack callBack) {
         userAccessMap.put(userId, endpoints);
