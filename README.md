@@ -70,12 +70,20 @@ on the task.
 Considering we put the all the information in a map during the init and addUser processes.
 We could filter this map by comparing whether the given resource matches or not.
 
-   boolean hasAccess = false;
-   if(!userAccessMap.isEmpty() && userAccessMap.containsKey(userId)){
-   hasAccess =  userAccessMap.get(userId)
-   .stream()
-   .anyMatch(endpoint -> endpoint.equals(resource));
-   }
+   public ResponseEntity<Object> checkUserAccess(String userId, String resource) throws BaseException {
+        logger.info("[Management System] checking reource access with user id: {}",  userId);
+        boolean hasAccess = false;
+        if(!userAccessMap.isEmpty() && userAccessMap.containsKey(userId)){
+            hasAccess =  userAccessMap.get(userId)
+                    .stream()
+                    .anyMatch(endpoint -> endpoint.equals(resource));
+        }
+
+        if(!hasAccess){
+            throw new AccessException(ERROR_CODE_9001,"User "+userId + " has no access for "+resource );
+        }
+        return new ResponseEntity<>(Response.ok("User "+userId + " check access success"), HttpStatus.OK);
+    }
 
 
 ## Points of Improvement
