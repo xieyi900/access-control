@@ -64,7 +64,7 @@ public class UseAccessService {
             }
 
             @Override
-            public void OnFailure(String userId, Throwable e) {
+            public void onFailure(String userId, Throwable e) {
                 logger.error("File write operation for User {} failed : {}", userId, e);
 
             }
@@ -81,7 +81,7 @@ public class UseAccessService {
                 callBack.onSuccess(userId);
             } catch (Exception e) {
                 e.printStackTrace();
-                callBack.OnFailure(userId, e);
+                callBack.onFailure(userId, e);
             }
         }, executor);
 
