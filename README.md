@@ -63,11 +63,11 @@ block the main thread. Besides, we add a callback interface to notify whenever t
     }
 
 2. Check access of User
-Considering we already have the accessInfo map so just need t filter by comparing whether the given resource matches or not.
+   
+Considering we already have the userAccessMap so just need to filter endpoints list by the give resource.
 
-
-      public ResponseEntity<Object> checkUserAccess(String userId, String resource) throws BaseException {
-        logger.info("[Management System] checking reource access with user id: {}",  userId);
+       public ResponseEntity<Object> checkUserAccess(String userId, String resource) throws BaseException {
+       
         boolean hasAccess = false;
         if(!userAccessMap.isEmpty() && userAccessMap.containsKey(userId)){
             hasAccess =  userAccessMap.get(userId)
