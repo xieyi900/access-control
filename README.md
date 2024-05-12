@@ -49,6 +49,10 @@ features to asynchronously executing the writeFile task so that it will not bloc
 main thread. Besides, we add a callback interface to notify whenever the success of failure 
 on the task.
 
+       public ResponseEntity<Object> addUserAccess(String userId, List<String> endpoints, WriteCallBack callBack) {
+        logger.info("[Manager System] adding resources {} with user id: {}", endpoints, userId);
+        userAccessMap.put(userId, endpoints);
+
         CompletableFuture.runAsync(() -> {
             try{
                 saveAccessInfo();
@@ -58,6 +62,9 @@ on the task.
                 callBack.onFailure(userId, e);
             }
         }, executor);
+
+        return new ResponseEntity<>(Response.ok("User access addition initiated."), HttpStatus.OK);
+    }
 
 2. Check access of User
 Considering we put the all the information in a map during the init and addUser processes.
