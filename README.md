@@ -50,7 +50,6 @@ main thread. Besides, we add a callback interface to notify whenever the success
 on the task.
 
        public ResponseEntity<Object> addUserAccess(String userId, List<String> endpoints, WriteCallBack callBack) {
-        logger.info("[Manager System] adding resources {} with user id: {}", endpoints, userId);
         userAccessMap.put(userId, endpoints);
 
         CompletableFuture.runAsync(() -> {
@@ -70,19 +69,20 @@ on the task.
 Considering we put the all the information in a map during the init and addUser processes.
 We could filter this map by comparing whether the given resource matches or not.
 
-   public ResponseEntity<Object> checkUserAccess(String userId, String resource) throws BaseException {
-        logger.info("[Management System] checking reource access with user id: {}",  userId);
-        boolean hasAccess = false;
-        if(!userAccessMap.isEmpty() && userAccessMap.containsKey(userId)){
-            hasAccess =  userAccessMap.get(userId)
-                    .stream()
-                    .anyMatch(endpoint -> endpoint.equals(resource));
-        }
+     public ResponseEntity<Object> addUserAccess(String userId, List<String> endpoints, WriteCallBack callBack) {
+        userAccessMap.put(userId, endpoints);
 
-        if(!hasAccess){
-            throw new AccessException(ERROR_CODE_9001,"User "+userId + " has no access for "+resource );
-        }
-        return new ResponseEntity<>(Response.ok("User "+userId + " check access success"), HttpStatus.OK);
+        CompletableFuture.runAsync(() -> {
+            try{
+                saveAccessInfo();
+                callBack.onSuccess(userId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                callBack.onFailure(userId, e);
+            }
+        }, executor);
+
+        return new ResponseEntity<>(Response.ok("User access addition initiated."), HttpStatus.OK);
     }
 
 
