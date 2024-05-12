@@ -49,9 +49,6 @@ features to asynchronously executing the writeFile task so that it will not bloc
 main thread. Besides, we add a callback interface to notify whenever the success of failure 
 on the task.
 
-public ResponseEntity<Object> addUserAccess(String userId, List<String> endpoints, WriteCallBack callBack) {
-userAccessMap.put(userId, endpoints);
-
         CompletableFuture.runAsync(() -> {
             try{
                 saveAccessInfo();
@@ -62,14 +59,10 @@ userAccessMap.put(userId, endpoints);
             }
         }, executor);
 
-        return new ResponseEntity<>(Response.ok("User Access added success."), HttpStatus.OK);
-    }
-
 2. Check access of User
 Considering we put the all the information in a map during the init and addUser processes.
 We could filter this map by comparing whether the given resource matches or not.
 
-   public ResponseEntity<Object> checkUserAccess(String userId, String resource) throws BaseException {
    boolean hasAccess = false;
    if(!userAccessMap.isEmpty() && userAccessMap.containsKey(userId)){
    hasAccess =  userAccessMap.get(userId)
@@ -77,11 +70,6 @@ We could filter this map by comparing whether the given resource matches or not.
    .anyMatch(endpoint -> endpoint.equals(resource));
    }
 
-        if(!hasAccess){
-            throw new AccessException(ERROR_CODE_9001,"User "+userId + " has no access for "+resource );
-        }
-        return new ResponseEntity<>(Response.ok("User "+userId + " check access success"), HttpStatus.OK);
-   }
 
 ## Points of Improvement
 1. In the project spring security framework is not used for role validation.
