@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import static com.management.access.control.util.AccessConstant.ERROR_CODE_9002;
 import static com.management.access.control.util.AccessConstant.ERROR_CODE_9003;
 
+
+/**
+ * global exception handler
+ * @author ben
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

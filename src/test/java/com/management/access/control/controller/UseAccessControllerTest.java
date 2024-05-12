@@ -1,6 +1,6 @@
 package com.management.access.control.controller;
 
-import com.management.access.control.service.UseAccessService;
+import com.management.access.control.service.UserAccessService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ public class UseAccessControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Autowired
-    private UseAccessService useAccessService;
+    private UserAccessService useAccessService;
 
     private MockMvc mockMvc;
 

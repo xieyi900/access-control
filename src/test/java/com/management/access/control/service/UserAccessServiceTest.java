@@ -26,10 +26,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class UseAccessServiceTest {
+public class UserAccessServiceTest {
 
     @InjectMocks
-    private UseAccessService useAccessService;
+    private UserAccessService useAccessService;
 
     @Mock
     private ResourceLoader resourceLoader;

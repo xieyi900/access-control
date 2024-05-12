@@ -3,6 +3,10 @@ package com.management.access.control.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * thread local context holder
+ * @author ben
+ */
 public class ThreadLocalContextHolder {
 
     private static ThreadLocalContextHolder instance;

@@ -4,7 +4,7 @@ package com.management.access.control.controller;
 import com.management.access.control.exception.BaseException;
 import com.management.access.control.exception.AccessException;
 import com.management.access.control.model.AccessInfo;
-import com.management.access.control.service.UseAccessService;
+import com.management.access.control.service.UserAccessService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,16 @@ import org.springframework.web.bind.annotation.*;
 import static com.management.access.control.util.AccessConstant.ERROR_CODE_9001;
 import static com.management.access.control.util.AccessConstant.ROLE_ADMIN;
 
+
+/**
+ * User access controller
+ * @author ben
+ */
 @RestController
 public class UserAccessController {
 
     @Autowired
-    private UseAccessService useAccessService;
+    private UserAccessService useAccessService;
 
     @PostMapping("/admin/addUser")
     public ResponseEntity<Object> addUser(@RequestBody AccessInfo accessInfo, HttpServletRequest request) throws Exception {

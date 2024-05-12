@@ -26,11 +26,16 @@ import java.util.concurrent.*;
 
 import static com.management.access.control.util.AccessConstant.*;
 
+/**
+ * User Access Service for the persistence of accessInfo details
+ * and the validation of resource access on the given user
+ * @author ben
+ */
 @Service
-public class UseAccessService {
+public class UserAccessService {
 
     private Map<String, List<String>> userAccessMap = new ConcurrentHashMap<>();
-    private static final Logger logger = LoggerFactory.getLogger(UseAccessService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserAccessService.class);
 
     private ObjectMapper mapper;
 
@@ -46,7 +51,6 @@ public class UseAccessService {
                 new LinkedBlockingQueue<>());
         this.mapper = new ObjectMapper();
         Resource resource = resourceLoader.getResource("classpath:"+AccessConstant.ACCESS_FILE);
-        System.out.println("resource exist ====>"+resource.exists());
         if(resource.exists()){
             File file = resource.getFile();
             userAccessMap = mapper.readValue(file, new TypeReference<>() {
@@ -56,6 +60,12 @@ public class UseAccessService {
 
     }
 
+    /**
+     * add user access
+     * @param userId
+     * @param accessInfo
+     * @return s
+     */
     public ResponseEntity<Object> addUserAccess(String userId, AccessInfo accessInfo){
         return addUserAccess(userId, accessInfo.getEndpoints(), new WriteCallBack() {
             @Override
@@ -72,7 +82,7 @@ public class UseAccessService {
     }
 
     public ResponseEntity<Object> addUserAccess(String userId, List<String> endpoints, WriteCallBack callBack) {
-        logger.info("[Management System] adding resources {} with user id: {}", endpoints, userId);
+        logger.info("[Manager System] adding resources {} with user id: {}", endpoints, userId);
         userAccessMap.put(userId, endpoints);
 
         CompletableFuture.runAsync(() -> {
@@ -85,7 +95,7 @@ public class UseAccessService {
             }
         }, executor);
 
-        return new ResponseEntity<>(Response.ok("User Access added success."), HttpStatus.OK);
+        return new ResponseEntity<>(Response.ok("User access addition initiated."), HttpStatus.OK);
     }
 
     public ResponseEntity<Object> checkUserAccess(String userId, String resource) throws BaseException {

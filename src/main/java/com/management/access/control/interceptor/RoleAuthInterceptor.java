@@ -10,10 +10,14 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import static com.management.access.control.util.AccessConstant.ROLE_ADMIN;
 import static com.management.access.control.util.AccessConstant.ROLE_USER;
 
-public class UserAuthorizationInterceptor implements HandlerInterceptor {
+/**
+ * role auth interceptor
+ * @author ben
+ */
+public class RoleAuthInterceptor implements HandlerInterceptor {
 
     public static final String EMPTY_STRING = "";
-    private static final Logger logger = LoggerFactory.getLogger(UserAuthorizationInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(RoleAuthInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

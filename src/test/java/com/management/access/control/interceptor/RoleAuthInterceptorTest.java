@@ -14,10 +14,10 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class UserAuthorizationInterceptorTest {
+public class RoleAuthInterceptorTest {
 
     @InjectMocks
-    private UserAuthorizationInterceptor userAuthorizationInterceptor;
+    private RoleAuthInterceptor userAuthorizationInterceptor;
 
     @Mock
     private MockHttpServletRequest request;

@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * root context
+ * @author ben
+ */
 public class RootContext {
 
     public static final ThreadLocalContextHolder CONTEXT_HOLDER = ThreadLocalContextHolder.getInstance();

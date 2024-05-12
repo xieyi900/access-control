@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Base64 encode and decode
- * @author xieyi
+ * @author ben
  */
 public class Base64Util {
 
